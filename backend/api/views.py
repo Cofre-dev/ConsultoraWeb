@@ -1,20 +1,19 @@
 from rest_framework import viewsets, status
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from django.core.mail import send_mail
 from core.models import Service, TeamMember, ContactSubmission, ClientTestimonial
-from .serializers import (
-    ServiceSerializer, TeamMemberSerializer, 
-    ContactSerializer, TestimonialSerializer
-)
+from .serializers import *
 
 # Create your views here.
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
-    lookup_field = 'slug' #Todo: Leer que es esto
+    lookup_field = 'slug'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     @action(detail=False, methods=['get'])
     def featured(self, request):
@@ -33,7 +32,7 @@ class teamViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class ContactViewSet(viewsets.CreateOnlyModelViewSet):
+class ContactViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ContactSubmission.objects.all()
     serializer_class = ContactSerializer
     throttle_classes = [AnonRateThrottle]  # Rate limiting
