@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h2 class="text-3xl font-extrabold text-gray-900">Nuestros Servicios</h2>
-        <p class="mt-4 text-lg text-gray-500">Soluciones expertas para potenciar tu negocio.</p>
+        <p class="mt-4 text-lg text-gray-500">Contabilidad, optimización tributario de la mano de expertos</p>
       </div>
 
       <!-- Muestra un indicador de carga mientras se obtienen los datos -->
@@ -29,29 +29,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-// --- 1. Importamos nuestro servicio y la interfaz que define la estructura de los datos ---
-import apiServices, { type Service } from '../services/apiServices';
+  import { ref, onMounted } from 'vue';
+  // --- 1. Importamos nuestro servicio y la interfaz que define la estructura de los datos ---
+  import apiService, { type Service } from '../services/apiService';
 
-// --- 2. Definimos el estado reactivo del componente ---
-const services = ref<Service[]>([]);
-const loading = ref(true);
-const error = ref(false);
+  // --- 2. Definimos el estado reactivo del componente ---
+  const services = ref<Service[]>([]);
+  const loading = ref(true);
+  const error = ref(false);
 
-// --- 3. Usamos el servicio cuando el componente se monta ---
-onMounted(async () => {
-  try {
-    // Usamos la función 'fetchServices' de nuestro servicio para obtener los datos.
-    const data = await apiServices.fetchServices();
-    // Guardamos los resultados en nuestra variable reactiva.
-    services.value = data.results;
-  } catch (err) {
-    console.error("Error al obtener los servicios:", err);
-    error.value = true;
-  } finally {
-    loading.value = false;
-  }
-});
+  // --- 3. Usamos el servicio cuando el componente se monta ---
+  onMounted(async () => {
+    try {
+      // Usamos la función 'fetchServices' de nuestro servicio para obtener los datos.
+      const data = await apiService.fetchServices();
+      // Guardamos los resultados en nuestra variable reactiva.
+      services.value = data.results;
+    } catch (err) {
+      console.error("Error al obtener los servicios:", err);
+      error.value = true;
+    } finally {
+      loading.value = false;
+    }
+  });
 </script>
 
 <style scoped>

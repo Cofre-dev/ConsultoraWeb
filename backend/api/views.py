@@ -24,12 +24,8 @@ class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class teamViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TeamMemberSerializer
-    
-    def get_queryset(self):
-        queryset = TeamMember.objects.all()
-        if self.request.query_params.get('partners_only'):
-            queryset = queryset.filter(is_partner=True)
-        return queryset
+    queryset = TeamMember.objects.all()    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class ContactViewSet(viewsets.ReadOnlyModelViewSet):

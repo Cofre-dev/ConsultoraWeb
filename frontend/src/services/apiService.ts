@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://127.0.0.1:8000/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-        'content-Type':'application/json',
+        'Content-Type':'application/json',
     },
 });
 
@@ -21,6 +21,6 @@ export interface Service {
 
 export default {
     fetchServices(): Promise<{ results: Service[] }> {
-        return apiClient.get('/service/').then(response => response.data);
+        return apiClient.get('/services/').then(response => response.data);
     }
 }
