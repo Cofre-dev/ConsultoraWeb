@@ -154,3 +154,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Al final de settings.py
+
+# URL que se usará para acceder a los archivos (ej: /media/carousel/mi-imagen.jpg)
+MEDIA_URL = '/media/'
+
+# Carpeta en tu disco duro donde se guardarán los archivos subidos
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -44,3 +44,10 @@ class TestimonialSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClientTestimonial
         fields = ['client_name', 'client_position', 'client_company', 'testimonial', 'rating']
+        
+        
+class CarouselSlideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarouselSlide
+        fields = ['id', 'title', 'subtitle', 'image', 'link_text', 'link_url']
+        

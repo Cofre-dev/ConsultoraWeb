@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions, mixins, status
 from rest_framework.response import Response
-from core.models import Service, TeamMember, ContactSubmission, ClientTestimonial
-from .serializers import ServiceSerializer, TeamMemberSerializer, ContactSerializer, TestimonialSerializer
+from core.models import *
+from .serializers import *
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -51,3 +51,9 @@ class ContactSubmissionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet)
             status=status.HTTP_201_CREATED,
             headers=headers
         )
+
+class CarouselSlideViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = CarouselSlide.objects.filter(is_active=True)
+    serializer_class = CaruselSlideSerializer
+    permission_classes = [permissions.AllowAny]
+    

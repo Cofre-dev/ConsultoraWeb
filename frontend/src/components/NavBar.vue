@@ -136,7 +136,7 @@ const handleNavClick = (e: Event) => {
   background: #040a4e;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   position: sticky;
-  top: 0;
+  top: -100%;
   z-index: 50;
   width: 100%;
 }

@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from import_export.admin import ImportExportModelAdmin
+from .models import *
+from django.contrib import admin
 
-# Create your models here.
 class Service(models.Model):
     #Servicios de Ara y bustamante
     title = models.CharField(max_length=200)
@@ -20,6 +22,7 @@ class Service(models.Model):
     def __str__(self):
         return self.title
 
+
 class TeamMember(models.Model):
     #Equipo de la consultora
     name = models.CharField(max_length=100)
@@ -37,7 +40,7 @@ class TeamMember(models.Model):
     
     def __str__(self):
         return self.name
-
+    
 class ContactSubmission(models.Model):
     #Formulario de contacto
     STATUS_CHOICES = [
@@ -76,6 +79,7 @@ class ContactSubmission(models.Model):
     def __str__(self):
         return f"{self.full_name} - {self.company}"
 
+
 class ClientTestimonial(models.Model):
     #Testimonios de clientes
     client_name = models.CharField(max_length=100)
@@ -93,3 +97,23 @@ class ClientTestimonial(models.Model):
     
     def __str__(self):
         return f"{self.client_name} - {self.client_company}" 
+    
+class CarouselSlide(models.Model):
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=300)
+    image = models.ImageField(upload_to='carousel/', help_text="Imagen del carrusel")
+    link_text = models.CharField(max_length=50, blank=True, help_text="#")
+    link_url = models.URLField(blank=True, help_text="URL Del boton")
+    order = models.IntegerField(default=0, help_text="Orden de aparición")
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Carrusel'
+        verbose_name_plural = 'Diapositivas del carrusel'
+        
+    def __str__(self):
+        return self.title
+
+
+    

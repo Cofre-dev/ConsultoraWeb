@@ -20,10 +20,13 @@
   #app-layout {
     display: flex;
     flex-direction: column;
+    width: 100%;
     min-height: 100vh;
-    background-color: #fefefe; 
+    background-color: #ffffff; 
   }
+
   main {
     flex-grow: 1; 
   }
+
 </style>

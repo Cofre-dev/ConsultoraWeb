@@ -29,12 +29,25 @@ export interface TeamMember {
   is_partner: boolean;
 }
 
+export interface CarouselSlide {
+  id: number;
+  title: string;
+  subtitle: string;
+  image: string;
+  link_text: string;
+  link_url: string;
+}
+
 export default {
     fetchServices(): Promise<{ results: Service[] }> {
         return apiClient.get('/services/').then(response => response.data);
     },
 
     fetchTeamMembers(): Promise<{results: TeamMember[]}> {
-        return apiClient.get('/team/').then(response => response.data)
+        return apiClient.get('/team/').then(response => response.data);
+    },
+
+    fetchCarouselSlides(): Promise<{results: CarouselSlide[]}> {
+        return apiClient.get('/carousel-slides/').then(response => response.data);
     }
 }

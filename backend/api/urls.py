@@ -9,6 +9,7 @@ router = DefaultRouter()
 
 router.register(r'services', ServiceViewSet, basename='service')
 router.register(r'team', TestimonialViewSet, basename='teammember')
+router.register(r'carousel-slides', CarouselSlideViewSet, basename="carouselslide")
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,7 +1,7 @@
 # core/admin.py
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Service, TeamMember, ContactSubmission, ClientTestimonial
+from .models import *
 
 @admin.register(Service)
 class ServiceAdmin(ImportExportModelAdmin):
@@ -56,3 +56,9 @@ class ClientTestimonialAdmin(admin.ModelAdmin):
     list_display = ['client_name', 'client_company', 'rating', 'is_active']
     list_editable = ['is_active']
     list_filter = ['is_active', 'rating']
+    
+
+@admin.register(CarouselSlide)
+class CarouselSlideAdmin(admin.ModelAdmin):
+    list_display = ['title', 'order', 'is_active']
+    list_editable = ['order', 'is_active']
