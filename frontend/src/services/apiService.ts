@@ -19,8 +19,22 @@ export interface Service {
     is_featured: boolean;
 }
 
+export interface TeamMember {
+  id: number;
+  name: string;
+  position: string;
+  bio: string;
+  photo: string; // La URL de la foto
+  linkedin_url: string;
+  is_partner: boolean;
+}
+
 export default {
     fetchServices(): Promise<{ results: Service[] }> {
         return apiClient.get('/services/').then(response => response.data);
+    },
+
+    fetchTeamMembers(): Promise<{results: TeamMember[]}> {
+        return apiClient.get('/team/').then(response => response.data)
     }
 }

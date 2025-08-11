@@ -1,52 +1,104 @@
 <template>
-  <!-- Contenedor principal de la tarjeta con estilos de Tailwind -->
-  <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
-    <div class="p-6">
-
-      <div class="flex items-center space-x-4">
-        <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-          <!-- Aquí podrías usar un ícono real basado en `service.icon` -->
-          <span class="text-white font-bold text-2xl">{{ service.title.charAt(0) }}</span>
+  <div class="service-card">
+    <div class="service-card-content">
+      <div class="service-card-header">
+        <div class="service-card-icon">
+          <span class="service-card-icon-text">{{ service.title.charAt(0) }}</span>
         </div>
-
-        <!-- Título del servicio -->
         <div>
-          <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-30">
+          <h3 class="service-card-title">
             {{ service.title }}
           </h3>
         </div>
       </div>
-
-      <p class="mt-4 text-gray-600 text-sm">
+      <p class="service-card-description">
         {{ service.short_description }}
       </p>
     </div>
-
-    <!-- Pie de la tarjeta con un enlace "Ver más" que aparece al hacer hover -->
-    <div class="bg-gray-50 px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-800">
+    <div class="service-card-footer">
+      <a href="#" class="service-card-link">
         Ver más &rarr;
       </a>
     </div>
   </div>
-
 </template>
 
 <script setup lang="ts">
-    // Importamos 'defineProps' para poder recibir datos desde el componente padre
-    import { defineProps } from 'vue';
+import { defineProps } from 'vue';
+import type { Service } from '../services/apiService';
 
-    // Definimos una interfaz para asegurar que los datos que recibimos son correctos
-    interface Service {
-      id: number;
-      title: string;
-      short_description: string;
-      ver_mas: string;
-    }
-
-    // 'defineProps' declara que este componente espera recibir una prop llamada 'service'
-    defineProps<{
-      service: Service
-    }>();
+defineProps<{
+  service: Service
+}>();
 
 </script>
+
+<style scoped>
+.service-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s, transform 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.service-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+.service-card-content {
+  padding: 24px;
+}
+.service-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.service-card-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.service-card-icon-text {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.service-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+  transition: color 0.2s;
+}
+.service-card:hover .service-card-title {
+  color: #2563eb;
+}
+.service-card-description {
+  margin-top: 16px;
+  color: #666;
+  font-size: 0.95rem;
+}
+.service-card-footer {
+  background: #f7f7f7;
+  padding: 16px 24px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.service-card:hover .service-card-footer {
+  opacity: 1;
+}
+.service-card-link {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+</style>

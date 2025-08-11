@@ -18,7 +18,7 @@ const router = createRouter({
       path: '/nosotros',
       name: 'nosotros',
       component: () => import('../views/Nosotros.vue')
-    }
+    } 
   ]
 })
 

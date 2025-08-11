@@ -23,23 +23,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import apiService, { type TeamMember } from '../services/apiService';
-import TeamMemberCard from '../components/TeamMemberCard.vue';
+  import { ref, onMounted } from 'vue';
+  import apiService, { type TeamMember } from '../services/apiService';
+  import TeamMemberCard from '../components/TeamMemberCard.vue';
 
-const team = ref<TeamMember[]>([]);
-const loading = ref(true);
-const error = ref(false);
+  const team = ref<TeamMember[]>([]);
+  const loading = ref(true);
+  const error = ref(false);
 
-onMounted(async () => {
-  try {
-    const data = await apiService.fetchTeamMembers();
-    team.value = data.results;
-  } catch (err) {
-    console.error("Error al obtener el equipo:", err);
-    error.value = true;
-  } finally {
-    loading.value = false;
-  }
-});
+  onMounted(async () => {
+    try {
+      const data = await apiService.fetchTeamMembers();
+      team.value = data.results;
+    } catch (err) {
+      console.error("Error al obtener el equipo:", err);
+      error.value = true;
+    } finally {
+      loading.value = false;
+    }
+  });
 </script>

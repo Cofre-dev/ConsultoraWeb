@@ -1,8 +1,9 @@
 <template>
+  
   <div>
     <ServiceList />
+  </div>
 
-    </div>
 </template>
 
 <script setup lang="ts">

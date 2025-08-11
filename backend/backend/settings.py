@@ -80,7 +80,7 @@ REST_FRAMEWORK = {
     }
 }
 
-CELERY_BROKER_URL = config('REDIS_URL', default='redir://localhost:6379')
+CELERY_BROKER_URL = config('REDIS_URL', default='redis://localhost:6379')
 CELERY_RESULT_BACKEND = config('REDIS_URL', default='redis://localhost:6379')
 
 ROOT_URLCONF = 'backend.urls'

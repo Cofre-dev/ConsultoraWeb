@@ -6,13 +6,14 @@
       <RouterView />
     </main>
     
-    <!-- <Footer /> -->
+    <FooterView />
   </div>
 </template>
 
 <script setup lang="ts">
   import { RouterView } from 'vue-router';
   import NavBar from './components/NavBar.vue';
+  import FooterView from './views/FooterView.vue';
 </script>
 
 <style scoped>
@@ -20,7 +21,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f9fafb; 
+    background-color: #fefefe; 
   }
   main {
     flex-grow: 1; 
