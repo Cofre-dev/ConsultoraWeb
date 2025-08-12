@@ -54,6 +54,6 @@ class ContactSubmissionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet)
 
 class CarouselSlideViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = CarouselSlide.objects.filter(is_active=True)
-    serializer_class = CaruselSlideSerializer
+    serializer_class = CarouselSlideSerializer
     permission_classes = [permissions.AllowAny]
     

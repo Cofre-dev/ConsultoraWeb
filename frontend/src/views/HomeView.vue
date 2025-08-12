@@ -2,7 +2,7 @@
   <div>
     <HeroCarousel />
 
-    <ServiceList />
+    <!-- <ServiceList /> -->
   </div>
 
 </template>
