@@ -1,72 +1,150 @@
 <template>
-  <div class="team-card">
-    <img class="team-card-photo" :src="member.photo" :alt="`Foto de ${member.name}`">
-    <h3 class="team-card-name">{{ member.name }}</h3>
-    <p class="team-card-position">{{ member.position }}</p>
-    <p v-if="member.bio" class="team-card-bio">{{ member.bio }}</p>
-    <a v-if="member.linkedin_url" :href="member.linkedin_url" target="_blank" class="team-card-link">
-      Ver en LinkedIn
-    </a>
+  <!-- Contenedor principal que reacciona al clic para activar el giro -->
+  <div class="card-container" @click="isFlipped = !isFlipped">
+    <div class="card-inner" :class="{ 'is-flipped': isFlipped }">
+      
+      <!-- CARA FRONTAL -->
+      <div class="card-face card-face-front">
+        <img class="card-photo" :src="member.photo" :alt="`Foto de ${member.name}`">
+        <div class="card-front-info">
+          <h3 class="card-name">{{ member.name }}</h3>
+          <p class="card-position">{{ member.position }}</p>
+        </div>
+      </div>
+
+      <!-- CARA TRASERA -->
+      <div class="card-face card-face-back">
+        <div class="card-back-content">
+          <h3 class="card-name-back">{{ member.name }}</h3>
+          <p v-if="member.bio" class="card-bio">{{ member.bio }}</p>
+          <a v-if="member.linkedin_url" :href="member.linkedin_url" target="_blank" rel="noopener noreferrer" class="card-link">
+            Ver Perfil en LinkedIn
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { defineProps } from 'vue';
-import type { TeamMember } from '../services/apiService';
+<script setup>
+import { ref, defineProps } from 'vue';
 
-defineProps<{
-  member: TeamMember
-}>();
+// Estado para controlar si la tarjeta está girada o no
+const isFlipped = ref(false);
+
+// Definimos las 'props' que el componente espera recibir
+defineProps({
+  member: {
+    type: Object,
+    required: true
+  }
+});
 </script>
 
 <style scoped>
-.team-card {
-  text-align: center;
-  background: #fff;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s, transform 0.3s;
+/* Estilos para el efecto de giro 3D */
+.card-container {
+  width: 100%;
+  height: 400px; /* Altura fija para consistencia */
+  perspective: 1000px; /* Activa la perspectiva 3D */
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem; 
+}
+
+.card-container:hover .card-inner {
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+.is-flipped {
+  transform: rotateY(180deg); /* El giro de 180 grados */
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 400px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; 
+  border-radius: 1rem;
   overflow: hidden;
 }
-.team-card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  transform: scale(1.05);
+
+/* Estilos de la cara frontal */
+.card-face-front {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
 }
-.team-card-photo {
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
+
+.card-photo {
+  width: 100%;
+  height: 70%;
   object-fit: cover;
-  margin: 0 auto 16px auto;
-  display: block;
 }
-.team-card-name {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 8px;
+
+.card-front-info {
+  padding: 1.5rem;
+  text-align: center;
 }
-.team-card-position {
+
+.card-name {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  color: #111827;
+}
+
+.card-position {
   color: #2563eb;
   font-weight: 600;
-  margin-bottom: 8px;
 }
-.team-card-bio {
-  margin-top: 8px;
-  color: #666;
-  font-size: 0.95rem;
+
+/* Estilos de la cara trasera */
+.card-face-back {
+  background-color: #111827; /* Fondo oscuro para contraste */
+  color: white;
+  transform: rotateY(180deg); /* La posicionamos girada por defecto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
 }
-.team-card-link {
-  margin-top: 16px;
+
+.card-name-back {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.card-bio {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #d1d5db; /* Gris claro */
+  flex-grow: 1;
+}
+
+.card-link {
   display: inline-block;
-  color: #2563eb;
-  font-weight: 500;
+  margin-top: 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px; /* Píldora */
   text-decoration: none;
-  transition: color 0.2s;
-  font-size: 1rem;
+  transition: background-color 0.3s;
 }
-.team-card-link:hover {
-  color: #1d4ed8;
+
+.card-link:hover {
+  background-color: #1d4ed8;
 }
 </style>

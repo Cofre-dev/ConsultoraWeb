@@ -57,3 +57,8 @@ class CarouselSlideViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CarouselSlideSerializer
     permission_classes = [permissions.AllowAny]
     
+
+class TeammemberViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TeamMember.objects.all().order_by('order')
+    serializer_class = TeamMemberSerializer
+    permission_classes = [permissions.AllowAny]

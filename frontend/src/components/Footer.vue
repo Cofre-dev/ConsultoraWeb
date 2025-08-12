@@ -3,6 +3,9 @@
     <div class="footer-inner">
       <div class="footer-copy">
         &copy; {{ new Date().getFullYear() }} Ara y Bustamante Consultores. Todos los derechos reservados.
+        <br>
+        <br>
+        <span> <strong>Ubicación: </strong></span>Isidora Goyenechea 3250, oficina 1102. El golf. 
       </div>
     </div>
   </footer>

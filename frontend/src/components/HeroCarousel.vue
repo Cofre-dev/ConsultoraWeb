@@ -114,11 +114,11 @@ onUnmounted(() => {
 <style scoped>
 /* Estilos CSS tradicionales para el carrusel */
 .carousel-container {
-  position: relative;
+  position:relative ;
   width: 100%;
   border-radius: 0.5rem; /* 8px */
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 50px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .slides-wrapper {

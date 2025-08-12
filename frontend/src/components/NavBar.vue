@@ -5,7 +5,9 @@
         <!-- LADO IZQUIERDO: Logo y nombre de la empresa -->
         <div class="navbar-logo-area">
           <div class="navbar-logo">
-            <span class="logo-text">A&B</span>
+            <span class="logo-text">
+              <img src="../assets/ayb.jpg" alt="">
+            </span>
           </div>
           <div class="navbar-title">
             <h1 class="company-name">
@@ -132,53 +134,63 @@ const handleNavClick = (e: Event) => {
 </script>
 
 <style scoped>
+
 .navbar {
-  background: #040a4e;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #fefefe;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: -100%;
   z-index: 50;
   width: 100%;
 }
+
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
+
 .navbar-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 80px;
 }
+
 .navbar-logo-area {
   display: flex;
   align-items: center;
   gap: 16px;
 }
+
 .navbar-logo {
-  width: 56px;
-  height: 40px;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  border-radius: 8px;
-  display: flex;
+  display: flex; 
   align-items: center;
-  justify-content: center;
+  height: 100%; 
 }
+
+/* Estilos para la imagen del logo */
+.navbar-logo img {
+  height: 75px; 
+  width: auto; 
+  display: block;
+}
+
 .logo-text {
   color: #f6f5f5;
   font-weight: bold;
   font-size: 1.25rem;
 }
 .navbar-title .company-name {
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: #fcfafa;
+  color: #000000;
   margin: 0;
+  margin-right: 15px;
 }
 .navbar-title .company-desc {
-  font-size: 0.75rem;
-  color: #d1d1d1;
+  font-size: 1.2rem;
+  color: #000000;
   margin: 0;
 }
 .navbar-menu {
@@ -187,14 +199,14 @@ const handleNavClick = (e: Event) => {
   gap: 32px;
 }
 .navbar-link {
-  color: #fff5f5;
+  color: #000000;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 520;
   transition: color 0.2s;
   padding: 4px 0;
 }
 .navbar-link:hover {
-  color: #2563eb;
+  color: #13ab1f;
 }
 .navbar-cta {
   background: linear-gradient(90deg, #2563eb, #1e40af);
@@ -261,7 +273,7 @@ const handleNavClick = (e: Event) => {
 /* Mobile menu */
 .mobile-menu {
   display: block;
-  background: #fff;
+  background: #fbf3f3;
   border-top: 1px solid #eee;
   width: 100%;
 }

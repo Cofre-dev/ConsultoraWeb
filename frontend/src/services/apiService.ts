@@ -24,7 +24,7 @@ export interface TeamMember {
   name: string;
   position: string;
   bio: string;
-  photo: string; // La URL de la foto
+  photo: string; 
   linkedin_url: string;
   is_partner: boolean;
 }
