@@ -10,8 +10,8 @@
       <div v-else class="team-grid">
         <TeamMemberCard 
           v-for="member in team" 
-            :key="member.id"
-            :member="member"
+          :key="member.id" 
+          :member="member" 
         />
       </div>
     </div>
@@ -19,73 +19,58 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import apiService from '../services/apiService';
-import TeamMemberCard from './TeamMemberCard.vue';
+import { defineProps } from 'vue';
+import TeamMemberCard from './TeamMemberCard.vue'; // Importamos la tarjeta
 
-const team = ref([]);
-const loading = ref(true);
-const error = ref(false);
-
-onMounted(async () => {
-  try {
-    const data = await apiService.fetchTeamMembers();
-    team.value = data.results;
-  } catch (err) {
-    console.error("Error al cargar el equipo:", err);
-    error.value = true;
-  } finally {
-    loading.value = false;
+// CAMBIO CLAVE:
+// Eliminamos onMounted, ref, apiService.
+// Ahora el componente solo define las 'props' que espera recibir de su padre.
+defineProps({
+  team: {
+    type: Array,
+    required: true
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  error: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
 
 <style scoped>
 .team-section {
-  padding: 5rem 1rem;
-  background-color: #f9fafb; /* Gris muy claro */
+  padding: 2rem 0.5rem;
+  background-color: #f9fafb;
 }
-
 .container {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
-
 .section-title {
-  font-size: 2.25rem; /* 36px */
+  font-size: 2.25rem;
   font-weight: 800;
   color: #111827;
 }
-
 .section-subtitle {
-  font-size: 1.25rem; /* 20px */
+  font-size: 1.25rem;
   color: #6b7280;
   margin-top: 0.5rem;
   margin-bottom: 4rem;
 }
-
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr); /* Una columna en móvil */
-  gap: 2.5rem; /* 40px */
-}
-
-/* Media queries para hacer la cuadrícula responsive */
-@media (min-width: 640px) {
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
-  }
-}
-
-@media (min-width: 1024px) {
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en desktop */
-  }
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem; 
 }
 
 .loading-message, .error-message {
   padding: 2rem;
   color: #6b7280;
+  font-size: 1.25rem;
 }
 </style>

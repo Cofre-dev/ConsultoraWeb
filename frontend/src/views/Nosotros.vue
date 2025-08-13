@@ -1,45 +1,40 @@
 <template>
-  <div class="py-16 bg-white" id="nosotros">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-base font-semibold text-blue-600 tracking-wide uppercase">Nuestro Equipo</h2>
-        <p class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Los expertos detrás de tu éxito
-        </p>
-      </div>
-      
-      <div v-if="loading" class="text-center py-12">Cargando...</div>
-      <div v-else-if="error" class="text-center py-12 text-red-600">Error al cargar el equipo.</div>
-      
-      <div v-else class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <TeamMemberCard 
-          v-for="member in team" 
-          :key="member.id"
-          :member="member"
-        />
-      </div>
-    </div>
-  </div>
+  <TeamSection 
+    :team="team"
+    :loading="loading"
+    :error="error"
+  />
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import apiService, { type TeamMember } from '../services/apiService';
-  import TeamMemberCard from '../components/TeamMemberCard.vue';
+// La lógica de carga de datos se mantiene aquí, en la vista principal.
+import { ref, onMounted } from 'vue';
+import apiService, { type TeamMember } from '../services/apiService';
+import TeamSection from '../components/TeamSection.vue'; // Importamos nuestro componente de sección
 
-  const team = ref<TeamMember[]>([]);
-  const loading = ref(true);
-  const error = ref(false);
+const team = ref<TeamMember[]>([]);
+const loading = ref(true);
+const error = ref(false);
 
-  onMounted(async () => {
-    try {
-      const data = await apiService.fetchTeamMembers();
-      team.value = data.results;
-    } catch (err) {
-      console.error("Error al obtener el equipo:", err);
-      error.value = true;
-    } finally {
-      loading.value = false;
-    }
-  });
+onMounted(async () => {
+  try {
+    const data = await apiService.fetchTeamMembers();
+    // CAMBIO IMPORTANTE: Asegúrate de que los datos de la API coincidan con
+    // lo que espera la tarjeta (name, position, photo, bio, linkedin_url).
+    // Si los nombres de los campos son diferentes, deberás mapearlos aquí.
+    // Por ejemplo: team.value = data.results.map(item => ({ name: item.nombre, ... }))
+    team.value = data.results; 
+  } catch (err) {
+    console.error("Error al obtener el equipo:", err);
+    error.value = true;
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
+
+<style scoped>
+/* Esta vista ya no necesita estilos propios, ya que toda la presentación
+  está encapsulada dentro del componente TeamSection. ¡Más limpio!
+*/
+</style>

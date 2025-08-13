@@ -1,104 +1,93 @@
 <template>
   <div class="service-card">
-    <div class="service-card-content">
-      <div class="service-card-header">
-        <div class="service-card-icon">
-          <span class="service-card-icon-text">{{ service.title.charAt(0) }}</span>
-        </div>
-        <div>
-          <h3 class="service-card-title">
-            {{ service.title }}
-          </h3>
-        </div>
-      </div>
-      <p class="service-card-description">
-        {{ service.short_description }}
-      </p>
+    <div class="service-icon-wrapper">
+      <!-- Aquí podrías usar un ícono real en el futuro -->
+      <span class="service-icon-letter">{{ service.title.charAt(0) }}</span>
     </div>
-    <div class="service-card-footer">
-      <a href="#" class="service-card-link">
-        Ver más &rarr;
-      </a>
-    </div>
+    <h3 class="service-title">{{ service.title }}</h3>
+    <p class="service-description">{{ service.short_description }}</p>
+    <a href="#" class="service-link">
+      Saber más &rarr;
+    </a>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineProps } from 'vue';
-import type { Service } from '../services/apiService';
 
-defineProps<{
-  service: Service
-}>();
-
+defineProps({
+  service: {
+    type: Object,
+    required: true
+  }
+});
 </script>
 
 <style scoped>
 .service-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s, transform 0.3s;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  background-color: white;
+  padding: 2.5rem 2rem; /* 40px 32px */
+  border-radius: 0.75rem; /* 12px */
+  text-align: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #e5e7eb;
 }
+
 .service-card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  transform: translateY(-4px);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #3b82f6; /* Azul primario */
 }
-.service-card-content {
-  padding: 24px;
-}
-.service-card-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.service-card-icon {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  border-radius: 10px;
+
+.service-icon-wrapper {
+  margin: 0 auto 1.5rem;
+  width: 4rem; /* 64px */
+  height: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
 }
-.service-card-icon-text {
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.5rem;
+
+.service-title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  color: #111827; /* Casi negro */
+  margin-bottom: 0.75rem;
 }
-.service-card-title {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #222;
-  margin: 0;
-  transition: color 0.2s;
+
+.service-description {
+  color: #4b5563; /* Gris oscuro */
+  line-height: 1.6;
+  min-height: 80px; /* Altura mínima para consistencia */
 }
-.service-card:hover .service-card-title {
-  color: #2563eb;
-}
-.service-card-description {
-  margin-top: 16px;
-  color: #666;
-  font-size: 0.95rem;
-}
-.service-card-footer {
-  background: #f7f7f7;
-  padding: 16px 24px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.service-card:hover .service-card-footer {
-  opacity: 1;
-}
-.service-card-link {
+
+.service-link {
+  display: inline-block;
+  margin-top: 1.5rem;
   color: #2563eb;
   font-weight: 600;
-  font-size: 0.95rem;
   text-decoration: none;
-  transition: color 0.2s;
+  position: relative;
+}
+
+.service-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #2563eb;
+  transition: width 0.3s;
+}
+
+.service-link:hover::after {
+  width: 100%;
 }
 </style>

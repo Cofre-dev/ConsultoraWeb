@@ -5,9 +5,9 @@
         <!-- LADO IZQUIERDO: Logo y nombre de la empresa -->
         <div class="navbar-logo-area">
           <div class="navbar-logo">
-            <span class="logo-text">
-              <img src="../assets/ayb.jpg" alt="">
-            </span>
+            <RouterLink to="/">
+              <img src="../assets/ayb.jpg" alt="Ara y bustamante consultores">
+            </RouterLink>
           </div>
           <div class="navbar-title">
             <h1 class="company-name">
@@ -17,17 +17,18 @@
           </div>
         </div>
 
+        
         <!-- CENTRO/DERECHA: Menú de navegación (desktop) -->
-        <div class="navbar-menu" v-if="!mobileMenuOpen">
-          <a 
+        <div class="navbar-menu">
+          <!-- CAMBIO: Se reemplazó <a> por <RouterLink> y :href por :to -->
+          <RouterLink 
             v-for="item in menuItems" 
             :key="item.name"
-            :href="item.href"
+            :to="item.path"
             class="navbar-link"
-            @click="handleNavClick"
           >
             {{ item.name }}
-          </a>
+          </RouterLink>
           <button class="navbar-cta">
             Portal Clientes
           </button>
@@ -67,29 +68,20 @@
       </div>
     </div>
 
-    <!-- MENÚ MÓVIL -->
-    <Transition
-      enter-active-class="fade-enter-active"
-      enter-from-class="fade-enter-from"
-      enter-to-class="fade-enter-to"
-      leave-active-class="fade-leave-active"
-      leave-from-class="fade-leave-from"
-      leave-to-class="fade-leave-to"
-    >
-      <div 
-        v-if="mobileMenuOpen" 
-        class="mobile-menu"
-      >
+   <!-- MENÚ MÓVIL -->
+    <Transition name="fade">
+      <div v-if="mobileMenuOpen" class="mobile-menu">
         <div class="mobile-menu-content">
-          <a 
+          <!-- CAMBIO: También se usa RouterLink aquí -->
+          <RouterLink 
             v-for="item in menuItems"
             :key="item.name"
-            :href="item.href"
+            :to="item.path"
             class="mobile-menu-link"
             @click="closeMobileMenu"
           >
             {{ item.name }}
-          </a>
+          </RouterLink>
           <button class="mobile-menu-cta">
             Portal Clientes
           </button>
@@ -100,16 +92,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import {ref} from 'vue';
 
 const mobileMenuOpen = ref(false)
 
 const menuItems = [
-  { name: 'Inicio', href: '#inicio' },
-  { name: 'Servicios', href: '#servicios' },
-  { name: 'Nosotros', href: '#nosotros' },
-  { name: 'Testimonios', href: '#testimonios' },
-  { name: 'Contacto', href: '#contacto' }
+  { name: 'Inicio', path: '/' },
+  { name: 'Servicios', path: '/servicios' },
+  { name: 'Nosotros', path: '/nosotros' },
+  { name: 'Testimonios', path: '/testimonios' },
+  { name: 'Contacto', path: '/contacto' }
 ]
 
 const toggleMobileMenu = () => {
@@ -120,26 +113,16 @@ const closeMobileMenu = () => {
   mobileMenuOpen.value = false
 }
 
-const handleNavClick = (e: Event) => {
-  e.preventDefault()
-  const target = (e.target as HTMLAnchorElement).getAttribute('href')
-  if (target && target.startsWith('#')) {
-    const element = document.querySelector(target)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-  closeMobileMenu()
-}
 </script>
 
 <style scoped>
+/* Tu CSS no necesita cambios, solo se ajusta el comportamiento del HTML y JS */
 
 .navbar {
   background: #fefefe;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
-  top: -100%;
+  top: 0; /* Corregido para que se quede pegado arriba */
   z-index: 50;
   width: 100%;
 }
@@ -163,51 +146,52 @@ const handleNavClick = (e: Event) => {
   gap: 16px;
 }
 
-.navbar-logo {
-  display: flex; 
-  align-items: center;
-  height: 100%; 
-}
-
-/* Estilos para la imagen del logo */
 .navbar-logo img {
   height: 75px; 
   width: auto; 
   display: block;
 }
 
-.logo-text {
-  color: #f6f5f5;
-  font-weight: bold;
-  font-size: 1.25rem;
-}
 .navbar-title .company-name {
-  font-size: 2rem;
+  font-size: 1.5rem; /* Ajustado para mejor legibilidad */
   font-weight: bold;
   color: #000000;
   margin: 0;
-  margin-right: 15px;
 }
 .navbar-title .company-desc {
-  font-size: 1.2rem;
-  color: #000000;
+  font-size: 0.875rem; /* Ajustado */
+  color: #6b7280;
   margin: 0;
 }
 .navbar-menu {
-  display: flex;
-  align-items: center;
-  gap: 32px;
+  display: none; /* Oculto por defecto, se muestra en desktop */
 }
 .navbar-link {
-  color: #000000;
+  color: #333;
   text-decoration: none;
-  font-weight: 520;
+  font-weight: 500;
   transition: color 0.2s;
   padding: 4px 0;
+  position: relative;
 }
 .navbar-link:hover {
   color: #13ab1f;
 }
+/* Efecto de subrayado al pasar el mouse */
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #13ab1f;
+    transition: width 0.3s;
+}
+.navbar-link:hover::after {
+    width: 100%;
+}
+
 .navbar-cta {
   background: linear-gradient(90deg, #2563eb, #1e40af);
   color: #fff;
@@ -217,15 +201,15 @@ const handleNavClick = (e: Event) => {
   font-weight: 500;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: all 0.2s;
 }
 .navbar-cta:hover {
-  background: linear-gradient(90deg, #1e40af, #2563eb);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   transform: translateY(-2px);
 }
 .navbar-hamburger {
-  display: none;
+  display: flex;
+  align-items: center;
 }
 .hamburger-btn {
   background: none;
@@ -234,7 +218,6 @@ const handleNavClick = (e: Event) => {
   padding: 0;
 }
 .hamburger-icon {
-  margin-top: 10px;
   width: 32px;
   height: 32px;
   transition: transform 0.2s;
@@ -244,52 +227,40 @@ const handleNavClick = (e: Event) => {
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .navbar-container {
-    padding: 0 12px;
-  }
-  .navbar-flex {
-    height: 64px;
-  }
-  .navbar-logo {
-    width: 40px;
-    height: 32px;
-  }
-  .navbar-title .company-name {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
+@media (min-width: 900px) {
   .navbar-menu {
-    display: none;
-  }
-  .navbar-hamburger {
     display: flex;
     align-items: center;
+    gap: 32px;
+  }
+  .navbar-hamburger {
+    display: none;
   }
 }
 
 /* Mobile menu */
 .mobile-menu {
   display: block;
-  background: #fbf3f3;
+  background: #fff;
   border-top: 1px solid #eee;
   width: 100%;
+  position: absolute;
+  left: 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 .mobile-menu-content {
-  padding: 32px 24px;
+  padding: 16px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 .mobile-menu-link {
   color: #444;
   text-decoration: none;
   font-size: 1rem;
-  padding: 12px 0;
+  padding: 12px;
   border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s;
 }
 .mobile-menu-link:hover {
   background: #f5f5f5;
@@ -314,9 +285,5 @@ const handleNavClick = (e: Event) => {
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
   transform: translateY(-8px);
-}
-.fade-enter-to, .fade-leave-from {
-  opacity: 1;
-  transform: translateY(0);
 }
 </style>

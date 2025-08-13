@@ -5,12 +5,12 @@
       
       <div class="hero-text-content">
         <h1 class="hero-title">
-          Expertos en Asesoría <span class="highlight-text">Tributaria y Contable</span>
+          Expertos en materia <span class="highlight-text">Tributaria y Contable</span>
         </h1>
         <!-- <p class="hero-subtitle">
           Expertos en tributación
         </p> -->
-        <a href="#servicios" class="hero-button">
+        <a href="../views/Servicios.vue" class="hero-button">
           Ver Nuestros Servicios
         </a>
       </div>
@@ -67,11 +67,11 @@
 .hero-button {
   display: inline-block;
   margin-top: 2.5rem; /* 40px */
-  background-color: #2563eb;
+  background-color: #1eca35;
   color: white;
   font-weight: 600;
-  padding: 0.875rem 2.5rem; /* 14px 40px */
-  border-radius: 0.5rem; /* 8px */
+  padding: 0.875rem 2.5rem; 
+  border-radius: 0.5rem; 
   transition: all 0.3s ease;
   box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.4);
 }
