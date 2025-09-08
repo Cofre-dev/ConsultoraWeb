@@ -68,7 +68,7 @@ defineProps({
 
 .is-flipped {
   /* Animación */
-  transform: rotateY(180deg);
+  transform: rotateY(360deg);
 }
 
 /* --- Estilos de las Caras --- */

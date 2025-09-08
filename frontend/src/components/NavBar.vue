@@ -13,7 +13,7 @@
             <h1 class="company-name">
               Ara y bustamante consultores
             </h1>
-            <p class="company-desc">Expertos en tributación</p>
+            <!-- <p class="company-desc">Expertos en tributación</p> -->
           </div>
         </div>
 

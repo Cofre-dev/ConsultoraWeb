@@ -9,10 +9,10 @@
 <script setup lang="ts">
 // La lógica de carga de datos se mantiene aquí, en la vista principal.
 import { ref, onMounted } from 'vue';
-import apiService, { type TeamMember } from '../services/apiService';
+import apiService, { type TeamMember } from '../services/apiService'; //Importamos la interface de la api
 import TeamSection from '../components/TeamSection.vue'; // Importamos nuestro componente de sección
 
-const team = ref<TeamMember[]>([]);
+const team = ref<TeamMember[]>([]); //Llamando a la lista de nuestro equipo
 const loading = ref(true);
 const error = ref(false);
 
@@ -33,8 +33,3 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
-/* Esta vista ya no necesita estilos propios, ya que toda la presentación
-  está encapsulada dentro del componente TeamSection. ¡Más limpio!
-*/
-</style>

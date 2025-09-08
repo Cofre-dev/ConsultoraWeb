@@ -1,3 +1,5 @@
 <template>
-    <h1>Welcome</h1>
+    <div>
+        <Footer />
+    </div>
 </template>

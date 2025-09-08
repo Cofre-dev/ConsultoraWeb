@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api'; //llamando a la API de django
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -16,6 +16,7 @@ export interface Service {
     short_description: string;
     description: string;
     icon: string;
+    order: number;
     is_featured: boolean;
 }
 
@@ -26,28 +27,25 @@ export interface TeamMember {
   bio: string;
   photo: string; 
   linkedin_url: string;
+  order: number;
   is_partner: boolean;
 }
 
-export interface CarouselSlide {
-  id: number;
-  title: string;
-  subtitle: string;
-  image: string;
-  link_text: string;
-  link_url: string;
+interface PaginatedResponse<T> {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
 }
 
 export default {
-    fetchServices(): Promise<{ results: Service[] }> {
-        return apiClient.get('/services/').then(response => response.data);
+    async fetchServices(): Promise<Service[]> {
+        const response = await apiClient.get<PaginatedResponse<Service>>('/services/');
+        return response.data.results;  // ← Solo devuelve los results
     },
 
-    fetchTeamMembers(): Promise<{results: TeamMember[]}> {
-        return apiClient.get('/team/').then(response => response.data);
-    },
-
-    fetchCarouselSlides(): Promise<{results: CarouselSlide[]}> {
-        return apiClient.get('/carousel-slides/').then(response => response.data);
+    async fetchTeamMembers(): Promise<TeamMember[]> {
+        const response = await apiClient.get<PaginatedResponse<TeamMember>>('/team/');
+        return response.data.results;  // ← Solo devuelve los results
     }
 }

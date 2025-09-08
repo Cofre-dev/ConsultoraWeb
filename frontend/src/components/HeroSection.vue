@@ -7,12 +7,15 @@
         <h1 class="hero-title">
           Expertos en materia <span class="highlight-text">Tributaria y Contable</span>
         </h1>
+
         <!-- <p class="hero-subtitle">
-          Expertos en tributación
+          Expertos en 
         </p> -->
-        <a href="../views/Servicios.vue" class="hero-button">
+
+        <!--Boton de servicios-->
+        <!-- <a href="../views/Servicios.vue" class="hero-button">
           Ver Nuestros Servicios
-        </a>
+        </a> -->
       </div>
 
       <div class="hero-image-content">

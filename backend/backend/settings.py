@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
 from decouple import config
+from pathlib import Path
+# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Third party
-    'rest_framework',
     'corsheaders',
+    'rest_framework',
     'import_export',
     
     #local Apps
@@ -64,15 +64,19 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://localhost:3000",
+    "https://127.0.0.1:5173",
 ]
 
 #REST framework
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.AllowAny',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE':10,
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
+        'rest_framework.throttling.UserRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '1000/hour',

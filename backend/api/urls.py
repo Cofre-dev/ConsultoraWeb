@@ -13,5 +13,6 @@ router.register(r'carousel-slides', CarouselSlideViewSet, basename="carouselslid
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('services/', views.ServiceListView.as_view(), name="service-list"),
 ]
 

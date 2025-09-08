@@ -5,17 +5,17 @@ from core.models import *
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ['id', 'title', 'slug', 'short_description', 'description', 'icon', 'is_featured']
+        fields = '__all__'
 
 class TeamMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamMember
-        fields = ['id', 'name', 'position', 'bio', 'photo', 'linkedin_url', 'is_partner']
+        fields = '__all__'
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactSubmission
-        fields = ['full_name', 'email', 'phone', 'company', 'position', 'service_interested', 'message']
+        fields = '__all__'
     
     def create(self, validated_data):
         # Obtener IP del request
@@ -26,7 +26,7 @@ class ContactSerializer(serializers.ModelSerializer):
         contact = super().create(validated_data)
         
         # Trigger async tasks
-        from api.tasks import send_notification_email, sync_to_zoho
+        from .tasks import send_notification_email, sync_to_zoho
         send_notification_email.delay(contact.id)
         sync_to_zoho.delay(contact.id)
         
@@ -43,11 +43,11 @@ class ContactSerializer(serializers.ModelSerializer):
 class TestimonialSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClientTestimonial
-        fields = ['client_name', 'client_position', 'client_company', 'testimonial', 'rating']
+        fields = '__all__'
         
         
 class CarouselSlideSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarouselSlide
-        fields = ['id', 'title', 'subtitle', 'image', 'link_text', 'link_url']
+        fields = '__all__'
         
